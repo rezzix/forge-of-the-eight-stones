@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/ore_node.gd" id="1_ore"]
+
+[sub_resource type="SphereShape3D" id="Shape_ore"]
+radius = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_ore"]
+albedo_color = Color(0.6, 0.6, 0.62, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_ore"]
+size = Vector3(1.4, 1.2, 1.4)
+
+[sub_resource type="BoxMesh" id="Mesh_ore_top"]
+size = Vector3(0.8, 0.7, 0.8)
+
+[sub_resource type="BoxMesh" id="Mesh_marker"]
+size = Vector3(0.22, 0.3, 0.22)
+
+[node name="OreNode" type="StaticBody3D"]
+script = ExtResource("1_ore")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.6, 0)
+mesh = SubResource("Mesh_ore")
+material_override = SubResource("Mat_ore")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 1.25, 0.15)
+rotation = Vector3(0, 0.5, 0.15)
+mesh = SubResource("Mesh_ore_top")
+material_override = SubResource("Mat_ore")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.6, 0)
+shape = SubResource("Shape_ore")
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.0, 0)
+rotation = Vector3(0, 0.78, 0)
+mesh = SubResource("Mesh_marker")

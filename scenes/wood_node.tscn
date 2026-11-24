@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/ore_node.gd" id="1_wood"]
+
+[sub_resource type="BoxShape3D" id="Shape_wood"]
+size = Vector3(2.2, 1.0, 1.0)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.55, 0.36, 0.2, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_log"]
+size = Vector3(2.2, 0.5, 0.55)
+
+[sub_resource type="BoxMesh" id="Mesh_log_top"]
+size = Vector3(1.8, 0.45, 0.5)
+
+[sub_resource type="BoxMesh" id="Mesh_marker"]
+size = Vector3(0.22, 0.3, 0.22)
+
+[node name="WoodNode" type="StaticBody3D"]
+script = ExtResource("1_wood")
+ore_type = "wood"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.3, 0)
+rotation = Vector3(0, 0.2, 0.12)
+mesh = SubResource("Mesh_log")
+material_override = SubResource("Mat_wood")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+position = Vector3(0.12, 0.78, 0.18)
+rotation = Vector3(0, -0.1, -0.16)
+mesh = SubResource("Mesh_log_top")
+material_override = SubResource("Mat_wood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.45, 0)
+shape = SubResource("Shape_wood")
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.0, 0)
+rotation = Vector3(0, 0.78, 0)
+mesh = SubResource("Mesh_marker")

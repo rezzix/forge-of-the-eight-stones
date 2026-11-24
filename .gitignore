@@ -1,0 +1,9 @@
+# Godot creates this folder automatically when it opens the project.
+.godot/
+# Export output
+export/
+build/
+*.exe
+# Temporary files
+*.tmp
+*.log

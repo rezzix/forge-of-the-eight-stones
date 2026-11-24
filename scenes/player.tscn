@@ -1,0 +1,178 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape3D" id="Shape_body"]
+radius = 0.4
+height = 1.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.24, 0.47, 0.86, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_skin"]
+albedo_color = Color(0.94, 0.78, 0.62, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(0.08, 0.08, 0.12, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_weapon"]
+albedo_color = Color(0.55, 0.42, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wood"]
+albedo_color = Color(0.45, 0.3, 0.16, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_metal"]
+albedo_color = Color(0.72, 0.75, 0.8, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_gold"]
+albedo_color = Color(0.95, 0.78, 0.3, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(0.6, 0.45, 0.1, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="BoxMesh" id="Mesh_leg"]
+size = Vector3(0.22, 0.65, 0.26)
+
+[sub_resource type="BoxMesh" id="Mesh_torso"]
+size = Vector3(0.62, 0.8, 0.4)
+
+[sub_resource type="BoxMesh" id="Mesh_arm"]
+size = Vector3(0.16, 0.7, 0.18)
+
+[sub_resource type="BoxMesh" id="Mesh_head"]
+size = Vector3(0.46, 0.44, 0.42)
+
+[sub_resource type="BoxMesh" id="Mesh_eye"]
+size = Vector3(0.08, 0.08, 0.06)
+
+[sub_resource type="BoxMesh" id="Mesh_weapon"]
+size = Vector3(0.1, 0.9, 0.1)
+
+[sub_resource type="BoxMesh" id="Mesh_handle"]
+size = Vector3(0.07, 0.95, 0.07)
+
+[sub_resource type="BoxMesh" id="Mesh_pick_head"]
+size = Vector3(0.55, 0.12, 0.12)
+
+[sub_resource type="BoxMesh" id="Mesh_shield"]
+size = Vector3(0.6, 0.8, 0.08)
+
+[sub_resource type="BoxMesh" id="Mesh_shield_boss"]
+size = Vector3(0.18, 0.18, 0.07)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.85, 0)
+shape = SubResource("Shape_body")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="LegPivotLeft" type="Node3D" parent="Visuals"]
+position = Vector3(-0.16, 0.65, 0)
+
+[node name="LegLeft" type="MeshInstance3D" parent="Visuals/LegPivotLeft"]
+position = Vector3(0, -0.325, 0)
+mesh = SubResource("Mesh_leg")
+material_override = SubResource("Mat_body")
+
+[node name="LegPivotRight" type="Node3D" parent="Visuals"]
+position = Vector3(0.16, 0.65, 0)
+
+[node name="LegRight" type="MeshInstance3D" parent="Visuals/LegPivotRight"]
+position = Vector3(0, -0.325, 0)
+mesh = SubResource("Mesh_leg")
+material_override = SubResource("Mat_body")
+
+[node name="Torso" type="MeshInstance3D" parent="Visuals"]
+position = Vector3(0, 1.05, 0)
+mesh = SubResource("Mesh_torso")
+material_override = SubResource("Mat_body")
+
+[node name="ArmPivotLeft" type="Node3D" parent="Visuals"]
+position = Vector3(-0.4, 1.45, 0)
+
+[node name="ArmLeft" type="MeshInstance3D" parent="Visuals/ArmPivotLeft"]
+position = Vector3(0, -0.37, 0)
+mesh = SubResource("Mesh_arm")
+material_override = SubResource("Mat_body")
+
+[node name="ToolHolder" type="Node3D" parent="Visuals/ArmPivotLeft"]
+position = Vector3(0, -0.4, -0.16)
+
+[node name="Pickaxe" type="Node3D" parent="Visuals/ArmPivotLeft/ToolHolder"]
+visible = false
+
+[node name="Handle" type="MeshInstance3D" parent="Visuals/ArmPivotLeft/ToolHolder/Pickaxe"]
+position = Vector3(0, -0.15, 0)
+mesh = SubResource("Mesh_handle")
+material_override = SubResource("Mat_wood")
+
+[node name="Head" type="MeshInstance3D" parent="Visuals/ArmPivotLeft/ToolHolder/Pickaxe"]
+position = Vector3(0, 0.32, 0)
+mesh = SubResource("Mesh_pick_head")
+material_override = SubResource("Mat_metal")
+
+[node name="Shield" type="Node3D" parent="Visuals/ArmPivotLeft/ToolHolder"]
+visible = false
+
+[node name="Panel" type="MeshInstance3D" parent="Visuals/ArmPivotLeft/ToolHolder/Shield"]
+mesh = SubResource("Mesh_shield")
+material_override = SubResource("Mat_wood")
+
+[node name="Boss" type="MeshInstance3D" parent="Visuals/ArmPivotLeft/ToolHolder/Shield"]
+position = Vector3(0, 0, -0.06)
+mesh = SubResource("Mesh_shield_boss")
+material_override = SubResource("Mat_gold")
+
+[node name="ArmPivotRight" type="Node3D" parent="Visuals"]
+position = Vector3(0.4, 1.45, 0)
+
+[node name="ArmRight" type="MeshInstance3D" parent="Visuals/ArmPivotRight"]
+position = Vector3(0, -0.37, 0)
+mesh = SubResource("Mesh_arm")
+material_override = SubResource("Mat_body")
+
+[node name="ToolHolder" type="Node3D" parent="Visuals/ArmPivotRight"]
+position = Vector3(0.07, -0.4, -0.2)
+
+[node name="Weapon" type="MeshInstance3D" parent="Visuals/ArmPivotRight/ToolHolder"]
+mesh = SubResource("Mesh_weapon")
+material_override = SubResource("Mat_weapon")
+
+[node name="DrawnWeapon" type="Node3D" parent="Visuals/ArmPivotRight/ToolHolder"]
+visible = false
+
+[node name="Head" type="MeshInstance3D" parent="Visuals"]
+position = Vector3(0, 1.68, 0)
+mesh = SubResource("Mesh_head")
+material_override = SubResource("Mat_skin")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Visuals"]
+position = Vector3(-0.11, 1.72, -0.22)
+mesh = SubResource("Mesh_eye")
+material_override = SubResource("Mat_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Visuals"]
+position = Vector3(0.11, 1.72, -0.22)
+mesh = SubResource("Mesh_eye")
+material_override = SubResource("Mat_eye")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+position = Vector3(0, 1.7, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+position = Vector3(0.55, 0, 0)
+rotation = Vector3(-0.3, 0, 0)
+spring_length = 5.6
+margin = 0.2
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+current = true
+fov = 75.0
